@@ -106,4 +106,13 @@ class DLM_Services {
 	private function cb_log_item_repository() {
 		return new DLM_WordPress_Log_Item_Repository();
 	}
+
+	/**
+	 * Dynamically called via get()
+	 *
+	 * @return DLM_Cookie_Manager
+	 */
+	private function cb_cookie_manager() {
+		return new DLM_Cookie_Manager();
+	}
 }

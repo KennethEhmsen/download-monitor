@@ -339,7 +339,7 @@ class DLM_Download_Handler {
 		$logging = new DLM_Logging();
 
 		// Check if logging is enabled and if unique ips is enabled
-		if ( $logging->is_logging_enabled() && false === DLM_Cookie_Manager::exists( $download ) ) {
+		if ( $logging->is_logging_enabled() && false === download_monitor()->service( 'cookie_manager' )->downloading_exists( $download ) ) {
 
 			// set create_log to true
 			$create_log = true;
@@ -452,7 +452,7 @@ class DLM_Download_Handler {
 		}
 
 		// check if user downloaded this version in the past minute
-		if ( false == DLM_Cookie_Manager::exists( $download ) ) {
+		if ( false == download_monitor()->service( 'cookie_manager' )->downloading_exists( $download ) ) {
 
 			// DLM Logging object
 			$logger = new DLM_Logging();
@@ -475,7 +475,7 @@ class DLM_Download_Handler {
 			do_action( 'dlm_downloading', $download, $version, $file_path );
 
 			// Set cookie to prevent double logging
-			DLM_Cookie_Manager::set_cookie( $download );
+			download_monitor()->service( 'cookie_manager' )->set_downloading_cookie( $download );
 		}
 
 		// Redirect to the file...
